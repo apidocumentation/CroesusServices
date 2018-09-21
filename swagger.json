@@ -1,0 +1,3069 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "**Please note that, for the beta version, we will try to avoid any breaking changes as much as possible, but we will not guarantee it.**\n\n**Client applications using the beta version should expect breaking changes from time to time**\n\nOur APIs let your applications fetch data from Croesus, allowing you to manage Croesus information and functions in your applications..\n\nBased on simple REST principles, our API endpoints return metadata in JSON format.\n",
+    "version" : "Beta",
+    "title" : "Croesus Services - Co",
+    "termsOfService" : "",
+    "contact" : { }
+  },
+  "host" : "mbio8vc.restletmocks.net",
+  "schemes" : [ "https" ],
+  "consumes" : [ "application/json" ],
+  "produces" : [ "application/json" ],
+  "security" : [ {
+    "Bearer" : [ ]
+  } ],
+  "paths" : {
+    "/accounts/{accountId}" : {
+      "get" : {
+        "summary" : "Get an account.",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "requestedCurrency",
+          "in" : "query",
+          "required" : false,
+          "type" : "string",
+          "description" : "The information requested will be converted to this currency. \n\nThe list of supported currencies follow the International Standard for currency codes (ISO 4217).\n\nThe values must be provided in upper case.\n\nIf not provided, the account will be returned using its own currency."
+        }, {
+          "name" : "orderBy",
+          "in" : "query",
+          "required" : false,
+          "type" : "string",
+          "description" : "Field name that will be used to sort. \n\nThe supported target fields are:\n\n- LongName\n\n- ShortName\n\n- Number (default; ascending)\n\n- InvestmentAdvisorCode\n\n- AccountCurrency\n\n- TotalValue\n\n- Margin\n\n- Balance"
+        }, {
+          "name" : "Authorization",
+          "in" : "header",
+          "required" : false,
+          "type" : "string",
+          "description" : "A valid access token.",
+          "x-example" : "Authorization: Bearer kjiodf98nsdfh98sd98husiusd78"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Status 200",
+            "schema" : {
+              "$ref" : "#/definitions/PagingAccount"
+            }
+          },
+          "400" : {
+            "description" : "Status 400",
+            "schema" : {
+              "$ref" : "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "accountId",
+        "in" : "path",
+        "required" : true,
+        "type" : "string",
+        "description" : "A comma-separated list of the Croesus IDs for the accounts."
+      } ],
+      "x-restlet" : {
+        "section" : "Accounts"
+      }
+    },
+    "/accounts" : {
+      "get" : {
+        "summary" : "Get the list of accounts.",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "requestedCurrency",
+          "in" : "query",
+          "required" : false,
+          "type" : "string",
+          "description" : "The information requested will be converted to this currency. \n\nThe list of supported currencies follow the International Standard for currency codes (ISO 4217).\n\nThe values must be provided in upper case.\n\nIf not provided, each account will be returned using their own currency."
+        }, {
+          "name" : "orderBy",
+          "in" : "query",
+          "required" : false,
+          "type" : "string",
+          "description" : "Field name that will be used to sort.\n\nThe supported target fields are:\n\n- LongName\n\n- ShortName\n\n- Number (default; ascending)\n\n- InvestmentAdvisorCode\n\n- AccountCurrency\n\n- TotalValue\n\n- Margin\n\n- Balance"
+        }, {
+          "name" : "before",
+          "in" : "query",
+          "required" : false,
+          "type" : "integer",
+          "description" : "Cursor that points to the start of the page of data that has been returned.\n\nIf neither the before nor the after is specified, the first page will be returned."
+        }, {
+          "name" : "after",
+          "in" : "query",
+          "required" : false,
+          "type" : "integer",
+          "description" : "Cursor that points to the end of the page of data that has been returned.\n\nIf neither the before nor the after is specified, the first page will be returned."
+        }, {
+          "name" : "pageLimit",
+          "in" : "query",
+          "required" : false,
+          "type" : "integer",
+          "description" : "Number of elements to return, for the current page. Fewer elements may be returned if it is the last page.",
+          "default" : 50,
+          "minimum" : 1,
+          "maximum" : 500
+        }, {
+          "name" : "Authorization",
+          "in" : "header",
+          "required" : false,
+          "type" : "string",
+          "description" : "A valid access token.",
+          "x-example" : "Authorization: Bearer kjiodf98nsdfh98sd98husiusd78"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Status 200",
+            "schema" : {
+              "$ref" : "#/definitions/PagingAccount"
+            }
+          },
+          "400" : {
+            "description" : "Status 400",
+            "schema" : {
+              "$ref" : "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "x-restlet" : {
+        "section" : "Accounts"
+      }
+    },
+    "/clients/{clientId}/accounts" : {
+      "get" : {
+        "summary" : "Get the accounts of a list of clients.",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "requestedCurrency",
+          "in" : "query",
+          "required" : false,
+          "type" : "string",
+          "description" : "The information requested will be converted to this currency. The list of supported currencies follow the International Standard for currency codes (ISO 4217).\n\nThe values must be provided in upper case.\n\nIf not provided, each account will be returned using their own currency."
+        }, {
+          "name" : "orderBy",
+          "in" : "query",
+          "required" : false,
+          "type" : "string",
+          "description" : "Field name that will be used to sort.\n\nThe supported target fields are:\n\n- LongName\n\n- ShortName\n\n- Number (default; ascending)\n\n- InvestmentAdvisorCode\n\n- AccountCurrency\n\n- TotalValue\n\n- Margin\n\n- Balance"
+        }, {
+          "name" : "before",
+          "in" : "query",
+          "required" : false,
+          "type" : "integer",
+          "description" : "Cursor that points to the start of the page of data that has been returned.\n\nIf neither the before nor the after is specified, the first page will be returned."
+        }, {
+          "name" : "after",
+          "in" : "query",
+          "required" : false,
+          "type" : "integer",
+          "description" : "Cursor that points to the end of the page of data that has been returned.\n\nIf neither the before nor the after is specified, the first page will be returned."
+        }, {
+          "name" : "pageLimit",
+          "in" : "query",
+          "required" : false,
+          "type" : "integer",
+          "description" : "Number of elements to return, for the current page. Fewer elements may be returned if it is the last page.",
+          "default" : 50,
+          "minimum" : 1,
+          "maximum" : 500
+        }, {
+          "name" : "Authorization",
+          "in" : "header",
+          "required" : false,
+          "type" : "string",
+          "description" : "A valid access token.",
+          "x-example" : "Authorization: Bearer kjiodf98nsdfh98sd98husiusd78"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Status 200",
+            "schema" : {
+              "$ref" : "#/definitions/PagingAccount"
+            }
+          },
+          "400" : {
+            "description" : "Status 400",
+            "schema" : {
+              "$ref" : "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "clientId",
+        "in" : "path",
+        "required" : true,
+        "type" : "string",
+        "description" : "A comma-separated list of the Croesus IDs for the clients."
+      } ],
+      "x-restlet" : {
+        "section" : "Accounts"
+      }
+    },
+    "/relationships/{relationshipId}/accounts" : {
+      "get" : {
+        "summary" : "Get the accounts of a relationship.",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "requestedCurrency",
+          "in" : "query",
+          "required" : false,
+          "type" : "string",
+          "description" : "The information requested will be converted to this currency. The list of supported currencies follow the International Standard for currency codes (ISO 4217).\n\nThe values must be provided in upper case.\n\nIf not provided, each account will be returned using their own currency"
+        }, {
+          "name" : "orderBy",
+          "in" : "query",
+          "required" : false,
+          "type" : "string",
+          "description" : "Field name that will be used to sort.\n\nThe supported target fields are:\n\n- LongName\n\n- ShortName\n\n- Number (default; ascending)\n\n- InvestmentAdvisorCode\n\n- AccountCurrency\n\n- TotalValue\n\n- Margin\n\n- Balance"
+        }, {
+          "name" : "before",
+          "in" : "query",
+          "required" : false,
+          "type" : "integer",
+          "description" : "Cursor that points to the start of the page of data that has been returned.\n\nIf neither the before nor the after is specified, the first page will be returned."
+        }, {
+          "name" : "after",
+          "in" : "query",
+          "required" : false,
+          "type" : "integer",
+          "description" : "Cursor that points to the end of the page of data that has been returned.\n\nIf neither the before nor the after is specified, the first page will be returned."
+        }, {
+          "name" : "pageLimit",
+          "in" : "query",
+          "required" : false,
+          "type" : "integer",
+          "description" : "Number of elements to return, for the current page. Fewer elements may be returned if it is the last page.",
+          "default" : 50,
+          "minimum" : 1,
+          "maximum" : 500
+        }, {
+          "name" : "Authorization",
+          "in" : "header",
+          "required" : false,
+          "type" : "string",
+          "description" : "A valid access token.",
+          "x-example" : "Authorization: Bearer kjiodf98nsdfh98sd98husiusd78"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Status 200",
+            "schema" : {
+              "$ref" : "#/definitions/PagingAccount"
+            }
+          },
+          "400" : {
+            "description" : "Status 400",
+            "schema" : {
+              "$ref" : "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "relationshipId",
+        "in" : "path",
+        "required" : true,
+        "type" : "string",
+        "description" : "A comma-separated list of the Croesus IDs for the relationships."
+      } ],
+      "x-restlet" : {
+        "section" : "Accounts"
+      }
+    },
+    "/clients/{clientId}" : {
+      "get" : {
+        "summary" : "Get a client.",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "requestedCurrency",
+          "in" : "query",
+          "required" : false,
+          "type" : "string",
+          "description" : "The information requested will be converted to this currency. \n\nThe list of supported currencies follow the International Standard for currency codes (ISO 4217).\n\nThe values must be provided in upper case.\n\nIf not provided, the client will be returned using its own currency."
+        }, {
+          "name" : "orderBy",
+          "in" : "query",
+          "required" : false,
+          "type" : "string",
+          "description" : "Field name that will be used to sort. \n\nThe supported target fields are:\n\n- ShortName (default; ascending)\n\n- LongName\n\n- DateOfBirth\n\n- InvestmentAdvisorCode\n\n- TotalValue\n\n- LastContactDate\n\n- Balance\n\n- Margin"
+        }, {
+          "name" : "Authorization",
+          "in" : "header",
+          "required" : false,
+          "type" : "string",
+          "description" : "A valid access token.",
+          "x-example" : "Authorization: Bearer kjiodf98nsdfh98sd98husiusd78"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Status 200",
+            "schema" : {
+              "$ref" : "#/definitions/PagingClientFull"
+            }
+          },
+          "400" : {
+            "description" : "Status 400",
+            "schema" : {
+              "$ref" : "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "clientId",
+        "in" : "path",
+        "required" : true,
+        "type" : "string",
+        "description" : "A comma-separated list of the Croesus IDs for the clients."
+      } ],
+      "x-restlet" : {
+        "section" : "Clients"
+      }
+    },
+    "/clients" : {
+      "get" : {
+        "summary" : "Get a list of clients.",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "requestedCurrency",
+          "in" : "query",
+          "required" : false,
+          "type" : "string",
+          "description" : "The information requested will be converted to this currency. \n\nThe list of supported currencies follow the International Standard for currency codes (ISO 4217).\n\nThe values must be provided in upper case.\n\nIf not provided, each client will be returned using their own currency."
+        }, {
+          "name" : "orderBy",
+          "in" : "query",
+          "required" : false,
+          "type" : "string",
+          "description" : "Field name that will be used to sort. \n\nThe supported target fields are:\n\n- ShortName (default; ascending)\n\n- LongName\n\n- DateOfBirth\n\n- InvestmentAdvisorCode\n\n- TotalValue\n\n- LastContactDate\n\n- Balance\n\n- Margin"
+        }, {
+          "name" : "before",
+          "in" : "query",
+          "required" : false,
+          "type" : "integer",
+          "description" : "Cursor that points to the start of the page of data that has been returned.\n\nIf neither the before nor the after is specified, the first page will be returned."
+        }, {
+          "name" : "after",
+          "in" : "query",
+          "required" : false,
+          "type" : "integer",
+          "description" : "Cursor that points to the end of the page of data that has been returned.\n\nIf neither the before nor the after is specified, the first page will be returned."
+        }, {
+          "name" : "pageLimit",
+          "in" : "query",
+          "required" : false,
+          "type" : "integer",
+          "description" : "Number of elements to return, for the current page. Fewer elements may be returned if it is the last page.",
+          "default" : 50,
+          "minimum" : 1,
+          "maximum" : 500
+        }, {
+          "name" : "Authorization",
+          "in" : "header",
+          "required" : false,
+          "type" : "string",
+          "description" : "A valid access token.",
+          "x-example" : "Authorization: Bearer kjiodf98nsdfh98sd98husiusd78"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Status 200",
+            "schema" : {
+              "$ref" : "#/definitions/PagingClientSimplified"
+            }
+          },
+          "400" : {
+            "description" : "Status 400",
+            "schema" : {
+              "$ref" : "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "x-restlet" : {
+        "section" : "Clients"
+      }
+    },
+    "/accounts/{accountId}/clients" : {
+      "get" : {
+        "summary" : "Get the client of an account.",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "requestedCurrency",
+          "in" : "query",
+          "required" : false,
+          "type" : "string",
+          "description" : "The information requested will be converted to this currency. The list of supported currencies follow the International Standard for currency codes (ISO 4217).\n\nThe values must be provided in upper case.\n\nIf not provided, each client will be returned using their own currency."
+        }, {
+          "name" : "orderBy",
+          "in" : "query",
+          "required" : false,
+          "type" : "string",
+          "description" : "Field name that will be used to sort.\n\nThe supported target fields are:\n\n- ShortName (default; ascending)\n\n- LongName\n\n- DateOfBirth\n\n- InvestmentAdvisorCode\n\n- TotalValue\n\n- LastContactDate\n\n- Balance\n\n- Margin"
+        }, {
+          "name" : "before",
+          "in" : "query",
+          "required" : false,
+          "type" : "integer",
+          "description" : "Cursor that points to the start of the page of data that has been returned.\n\nIf neither the before nor the after is specified, the first page will be returned."
+        }, {
+          "name" : "after",
+          "in" : "query",
+          "required" : false,
+          "type" : "integer",
+          "description" : "Cursor that points to the end of the page of data that has been returned.\n\nIf neither the before nor the after is specified, the first page will be returned."
+        }, {
+          "name" : "pageLimit",
+          "in" : "query",
+          "required" : false,
+          "type" : "integer",
+          "description" : "Number of elements to return, for the current page. Fewer elements may be returned if it is the last page.",
+          "default" : 50,
+          "minimum" : 1,
+          "maximum" : 500
+        }, {
+          "name" : "Authorization",
+          "in" : "header",
+          "required" : false,
+          "type" : "string",
+          "description" : "A valid access token.",
+          "x-example" : "Authorization: Bearer kjiodf98nsdfh98sd98husiusd78"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Status 200",
+            "schema" : {
+              "$ref" : "#/definitions/PagingClientSimplified"
+            }
+          },
+          "400" : {
+            "description" : "Status 400",
+            "schema" : {
+              "$ref" : "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "accountId",
+        "in" : "path",
+        "required" : true,
+        "type" : "string",
+        "description" : "A comma-separated list of the Croesus IDs for the account."
+      } ],
+      "x-restlet" : {
+        "section" : "Clients"
+      }
+    },
+    "/relationships/{relationshipId}/clients" : {
+      "get" : {
+        "summary" : "Get the client of a relationship",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "requestedCurrency",
+          "in" : "query",
+          "required" : false,
+          "type" : "string",
+          "description" : "The information requested will be converted to this currency. The list of supported currencies follow the International Standard for currency codes (ISO 4217).\n\nThe values must be provided in upper case.\n\nIf not provided, each client will be returned using their own currency."
+        }, {
+          "name" : "orderBy",
+          "in" : "query",
+          "required" : false,
+          "type" : "string",
+          "description" : "Field name that will be used to sort.\n\nThe supported target fields are:\n\n- ShortName (default; ascending)\n\n- LongName\n\n- DateOfBirth\n\n- InvestmentAdvisorCode\n\n- TotalValue\n\n- LastContactDate\n\n- Balance\n\n- Margin"
+        }, {
+          "name" : "before",
+          "in" : "query",
+          "required" : false,
+          "type" : "integer",
+          "description" : "Cursor that points to the start of the page of data that has been returned.\n\nIf neither the before nor the after is specified, the first page will be returned."
+        }, {
+          "name" : "after",
+          "in" : "query",
+          "required" : false,
+          "type" : "integer",
+          "description" : "Cursor that points to the end of the page of data that has been returned.\n\nIf neither the before nor the after is specified, the first page will be returned."
+        }, {
+          "name" : "pageLimit",
+          "in" : "query",
+          "required" : false,
+          "type" : "integer",
+          "description" : "Number of elements to return, for the current page. Fewer elements may be returned if it is the last page.",
+          "default" : 50,
+          "minimum" : 1,
+          "maximum" : 500
+        }, {
+          "name" : "Authorization",
+          "in" : "header",
+          "required" : false,
+          "type" : "string",
+          "description" : "A valid access token.",
+          "x-example" : "Authorization: Bearer kjiodf98nsdfh98sd98husiusd78"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Status 200",
+            "schema" : {
+              "$ref" : "#/definitions/PagingClientSimplified"
+            }
+          },
+          "400" : {
+            "description" : "Status 400",
+            "schema" : {
+              "$ref" : "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "relationshipId",
+        "in" : "path",
+        "required" : true,
+        "type" : "string",
+        "description" : "A comma-separated list of the Croesus IDs for the relationship."
+      } ],
+      "x-restlet" : {
+        "section" : "Clients"
+      }
+    },
+    "/clients/{clientId}/portfolio" : {
+      "get" : {
+        "summary" : "Get the blended portfolio for a list of clients.",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "requestedCurrency",
+          "in" : "query",
+          "required" : false,
+          "type" : "string",
+          "description" : "The information requested will be converted to this currency. The list of supported currencies follow the International Standard for currency codes (ISO 4217).\n\nThe values must be provided in upper case.\n\nIf not provided:\n\n- If all clients have the same currency, the portfolio will be calculated using the client currency.\n\n- Otherwise, the portfolio will be calculated using the firm currency."
+        }, {
+          "name" : "mode",
+          "in" : "query",
+          "required" : false,
+          "type" : "string",
+          "description" : "The mode wanted. If the mode parameter has the value \"assetClass\" the portfolio will be displayed in the \"By Asset Class\" mode.\n\n\nOtherwise the \"By Security\" mode is used.",
+          "default" : "Security",
+          "enum" : [ "Security", "AssetClass" ]
+        }, {
+          "name" : "includeZeroPositions",
+          "in" : "query",
+          "required" : false,
+          "type" : "boolean",
+          "description" : "Determines whether the zero quantity positions held by the portfolio must be included.",
+          "default" : false
+        }, {
+          "name" : "Authorization",
+          "in" : "header",
+          "required" : false,
+          "type" : "string",
+          "description" : "A valid access token.",
+          "x-example" : "Authorization: Bearer kjiodf98nsdfh98sd98husiusd78"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Status 200",
+            "schema" : {
+              "type" : "object",
+              "description" : "On success, the HTTP status code in the response header is 200 OK and the response body contains one of the following object, in JSON format:\n\n* a portfolioBySecurity object (when the parameter \"mode\" = \"security\")\n* a portfolioByAssetClass object (when the parameter \"mode\" = \"assetClass\")\n\nObjects are returned in the order requested. If an object in not found, a null value is returned in the appropriate position.\n\nOn error, the header status code is an error code and the response body contains an error object.",
+              "properties" : {
+                "PortfolioBySecurity" : {
+                  "$ref" : "#/definitions/PortfolioBySecurity"
+                },
+                "PortfolioByAssetClass" : {
+                  "$ref" : "#/definitions/PortfolioByAssetClass"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Status 400",
+            "schema" : {
+              "$ref" : "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "clientId",
+        "in" : "path",
+        "required" : true,
+        "type" : "string",
+        "description" : "A comma-separated list of the Croesus IDs for the client."
+      } ],
+      "x-restlet" : {
+        "section" : "Portfolio"
+      }
+    },
+    "/accounts/{accountId}/portfolio" : {
+      "get" : {
+        "summary" : "Get the portfolio for a list of accounts.",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "requestedCurrency",
+          "in" : "query",
+          "required" : false,
+          "type" : "string",
+          "description" : "The information requested will be converted to this currency. The list of supported currencies follow the International Standard for currency codes (ISO 4217).\n\nThe values must be provided in upper case.\n\nIf not provided:\n\n- If all accounts have the same currency, the portfolio will be calculated using the account currency.\n\n- Otherwise, the portfolio will be calculated using the firm currency."
+        }, {
+          "name" : "mode",
+          "in" : "query",
+          "required" : false,
+          "type" : "string",
+          "description" : "The mode wanted. If the mode parameter has the value \"assetClass\" the portfolio will be displayed in the \"By Asset Class\" mode.\n\n\nOtherwise the \"By Security\" mode is used.",
+          "default" : "Security",
+          "enum" : [ "Security", "AssetClass" ]
+        }, {
+          "name" : "includeZeroPositions",
+          "in" : "query",
+          "required" : false,
+          "type" : "boolean",
+          "description" : "Determines whether the zero quantity positions held by the portfolio must be included.",
+          "default" : false
+        }, {
+          "name" : "Authorization",
+          "in" : "header",
+          "required" : false,
+          "type" : "string",
+          "description" : "A valid access token.",
+          "x-example" : "Authorization: Bearer kjiodf98nsdfh98sd98husiusd78"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Status 200",
+            "schema" : {
+              "type" : "object",
+              "description" : "On success, the HTTP status code in the response header is 200 OK and the response body contains one of the following object, in JSON format:\n\n* a portfolioBySecurity object (when the parameter \"mode\" = \"security\")\n* a portfolioByAssetClass object (when the parameter \"mode\" = \"assetClass\")\n\nObjects are returned in the order requested. If an object in not found, a null value is returned in the appropriate position.\n\nOn error, the header status code is an error code and the response body contains an error object.",
+              "properties" : {
+                "PortfolioBySecurity" : {
+                  "$ref" : "#/definitions/PortfolioBySecurity"
+                },
+                "PortfolioByAssetClass" : {
+                  "$ref" : "#/definitions/PortfolioByAssetClass"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Status 400",
+            "schema" : {
+              "$ref" : "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "accountId",
+        "in" : "path",
+        "required" : true,
+        "type" : "string",
+        "description" : "A comma-separated list of the Croesus IDs for the account"
+      } ],
+      "x-restlet" : {
+        "section" : "Portfolio"
+      }
+    },
+    "/relationships/{relationshipId}/portfolio" : {
+      "get" : {
+        "summary" : "Get the portfolio for a list of relationships",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "requestedCurrency",
+          "in" : "query",
+          "required" : false,
+          "type" : "string",
+          "description" : "The information requested will be converted to this currency. The list of supported currencies follow the International Standard for currency codes (ISO 4217).\n\nThe values must be provided in upper case.\n\nIf not provided:\n\n- If all relationships have the same currency, the portfolio will be calculated using the relationship currency.\n\n- Otherwise, the portfolio will be calculated using the firm currency."
+        }, {
+          "name" : "mode",
+          "in" : "query",
+          "required" : false,
+          "type" : "string",
+          "description" : "The mode wanted. If the mode parameter has the value \"assetClass\" the portfolio will be displayed in the \"By Asset Class\" mode.\n\n\nOtherwise the \"By Security\" mode is used.",
+          "default" : "Security",
+          "enum" : [ "Security", "AssetClass" ]
+        }, {
+          "name" : "includeZeroPositions",
+          "in" : "query",
+          "required" : false,
+          "type" : "boolean",
+          "description" : "Determines whether the zero quantity positions held by the portfolio must be included.",
+          "default" : false
+        }, {
+          "name" : "Authorization",
+          "in" : "header",
+          "required" : false,
+          "type" : "string",
+          "description" : "A valid access token.",
+          "x-example" : "Authorization: Bearer kjiodf98nsdfh98sd98husiusd78"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Status 200",
+            "schema" : {
+              "type" : "object",
+              "description" : "On success, the HTTP status code in the response header is 200 OK and the response body contains one of the following object, in JSON format:\n\n* a portfolioBySecurity object (when the parameter \"mode\" = \"security\")\n* a portfolioByAssetClass object (when the parameter \"mode\" = \"assetClass\")\n\nObjects are returned in the order requested. If an object in not found, a null value is returned in the appropriate position.\n\nOn error, the header status code is an error code and the response body contains an error object.",
+              "properties" : {
+                "PortfolioBySecurity" : {
+                  "$ref" : "#/definitions/PortfolioBySecurity"
+                },
+                "PortfolioByAssetClass" : {
+                  "$ref" : "#/definitions/PortfolioByAssetClass"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Status 400",
+            "schema" : {
+              "$ref" : "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "relationshipId",
+        "in" : "path",
+        "required" : true,
+        "type" : "string",
+        "description" : "A comma-separated list of the Croesus IDs for the relationship."
+      } ],
+      "x-restlet" : {
+        "section" : "Portfolio"
+      }
+    },
+    "/relationships/{relationshipId}" : {
+      "get" : {
+        "summary" : "Get a relationship",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "requestedCurrency",
+          "in" : "query",
+          "required" : false,
+          "type" : "string",
+          "description" : "The information requested will be converted to this currency. \n\nThe list of supported currencies follow the International Standard for currency codes (ISO 4217).\n\nThe values must be provided in upper case.\n\nIf not provided, the relationship will be returned using its own currency."
+        }, {
+          "name" : "orderBy",
+          "in" : "query",
+          "required" : false,
+          "type" : "string",
+          "description" : "Field name that will be used to sort. \n\nThe supported target fields are:\n\n- ShortName (default; ascending)\n\n- LongName\n\n- Number\n\n- InvestmentAdvisorCode\n\n- RelationshipCurrency\n\n- TotalValue\n\n- Balance\n\n- Margin"
+        }, {
+          "name" : "Authorization",
+          "in" : "header",
+          "required" : false,
+          "type" : "string",
+          "description" : "A valid access token.",
+          "x-example" : "Authorization: Bearer kjiodf98nsdfh98sd98husiusd78"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Status 200",
+            "schema" : {
+              "$ref" : "#/definitions/PagingRelationshipFull"
+            }
+          },
+          "400" : {
+            "description" : "Status 400",
+            "schema" : {
+              "$ref" : "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "relationshipId",
+        "in" : "path",
+        "required" : true,
+        "type" : "string",
+        "description" : "A comma-separated list of the Croesus IDs for the relationship."
+      } ],
+      "x-restlet" : {
+        "section" : "Relationships"
+      }
+    },
+    "/relationships" : {
+      "get" : {
+        "summary" : "Get a list of relationships.",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "requestedCurrency",
+          "in" : "query",
+          "required" : false,
+          "type" : "string",
+          "description" : "The information requested will be converted to this currency. \n\nThe list of supported currencies follow the International Standard for currency codes (ISO 4217).\n\nThe values must be provided in upper case.\n\nIf not provided, each relationship will be returned using their own currency."
+        }, {
+          "name" : "orderBy",
+          "in" : "query",
+          "required" : false,
+          "type" : "string",
+          "description" : "Field name that will be used to sort. \n\nThe supported target fields are:\n\n- ShortName (default; ascending)\n\n- LongName\n\n- Number\n\n- InvestmentAdvisorCode\n\n- RelationshipCurrency\n\n- TotalValue\n\n- Balance\n\n- Margin"
+        }, {
+          "name" : "before",
+          "in" : "query",
+          "required" : false,
+          "type" : "integer",
+          "description" : "Cursor that points to the start of the page of data that has been returned.\n\nIf neither the before nor the after is specified, the first page will be returned."
+        }, {
+          "name" : "after",
+          "in" : "query",
+          "required" : false,
+          "type" : "integer",
+          "description" : "Cursor that points to the end of the page of data that has been returned.\n\nIf neither the before nor the after is specified, the first page will be returned."
+        }, {
+          "name" : "pageLimit",
+          "in" : "query",
+          "required" : false,
+          "type" : "integer",
+          "description" : "Number of elements to return, for the current page. Fewer elements may be returned if it is the last page.",
+          "default" : 50,
+          "minimum" : 1,
+          "maximum" : 500
+        }, {
+          "name" : "Authorization",
+          "in" : "header",
+          "required" : false,
+          "type" : "string",
+          "description" : "A valid access token.",
+          "x-example" : "Authorization: Bearer kjiodf98nsdfh98sd98husiusd78"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Status 200",
+            "schema" : {
+              "$ref" : "#/definitions/PagingRelationshipSimplified"
+            }
+          },
+          "400" : {
+            "description" : "Status 400",
+            "schema" : {
+              "$ref" : "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "x-restlet" : {
+        "section" : "Relationships"
+      }
+    },
+    "/accounts/{accountId}/relationships" : {
+      "get" : {
+        "summary" : "Get the relationship of an account.",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "requestedCurrency",
+          "in" : "query",
+          "required" : false,
+          "type" : "string",
+          "description" : "The information requested will be converted to this currency. The list of supported currencies follow the International Standard for currency codes (ISO 4217).\n\nThe values must be provided in upper case.\n\nIf not provided, each relationship will be returned using their own currency."
+        }, {
+          "name" : "orderBy",
+          "in" : "query",
+          "required" : false,
+          "type" : "string",
+          "description" : "Field name that will be used to sort.\n\nThe supported target fields are:\n\n- ShortName (default; ascending)\n\n- LongName\n\n- Number\n\n- InvestmentAdvisorCode\n\n- RelationshipCurrency\n\n- TotalValue\n\n- Balance\n\n- Margin"
+        }, {
+          "name" : "before",
+          "in" : "query",
+          "required" : false,
+          "type" : "integer",
+          "description" : "Cursor that points to the start of the page of data that has been returned.\n\nIf neither the before nor the after is specified, the first page will be returned."
+        }, {
+          "name" : "after",
+          "in" : "query",
+          "required" : false,
+          "type" : "integer",
+          "description" : "Cursor that points to the end of the page of data that has been returned.\n\nIf neither the before nor the after is specified, the first page will be returned."
+        }, {
+          "name" : "pageLimit",
+          "in" : "query",
+          "required" : false,
+          "type" : "integer",
+          "description" : "Number of elements to return, for the current page. Fewer elements may be returned if it is the last page.",
+          "default" : 50,
+          "minimum" : 1,
+          "maximum" : 500
+        }, {
+          "name" : "Authorization",
+          "in" : "header",
+          "required" : false,
+          "type" : "string",
+          "description" : "A valid access token.",
+          "x-example" : "Authorization: Bearer kjiodf98nsdfh98sd98husiusd78"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Status 200",
+            "schema" : {
+              "$ref" : "#/definitions/PagingRelationshipSimplified"
+            }
+          },
+          "400" : {
+            "description" : "Status 400",
+            "schema" : {
+              "$ref" : "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "accountId",
+        "in" : "path",
+        "required" : true,
+        "type" : "string",
+        "description" : "A comma-separated list of the Croesus IDs for the account."
+      } ],
+      "x-restlet" : {
+        "section" : "Relationships"
+      }
+    },
+    "/clients/{clientId}/relationships" : {
+      "get" : {
+        "summary" : "Get the relationships of a client",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "requestedCurrency",
+          "in" : "query",
+          "required" : false,
+          "type" : "string",
+          "description" : "The information requested will be converted to this currency. The list of supported currencies follow the International Standard for currency codes (ISO 4217).\n\nThe values must be provided in upper case.\n\nIf not provided, each relationship will be returned using their own currency."
+        }, {
+          "name" : "orderBy",
+          "in" : "query",
+          "required" : false,
+          "type" : "string",
+          "description" : "Field name that will be used to sort.\n\nThe supported target fields are:\n\n- ShortName (default; ascending)\n\n- LongName\n\n- Number\n\n- InvestmentAdvisorCode\n\n- RelationshipCurrency\n\n- TotalValue\n\n- Balance\n\n- Margin"
+        }, {
+          "name" : "before",
+          "in" : "query",
+          "required" : false,
+          "type" : "integer",
+          "description" : "Cursor that points to the start of the page of data that has been returned.\n\nIf neither the before nor the after is specified, the first page will be returned."
+        }, {
+          "name" : "after",
+          "in" : "query",
+          "required" : false,
+          "type" : "integer",
+          "description" : "Cursor that points to the end of the page of data that has been returned.\n\nIf neither the before nor the after is specified, the first page will be returned."
+        }, {
+          "name" : "pageLimit",
+          "in" : "query",
+          "required" : false,
+          "type" : "integer",
+          "description" : "Number of elements to return, for the current page. Fewer elements may be returned if it is the last page.",
+          "default" : 50,
+          "minimum" : 1,
+          "maximum" : 500
+        }, {
+          "name" : "Authorization",
+          "in" : "header",
+          "required" : false,
+          "type" : "string",
+          "description" : "A valid access token.",
+          "x-example" : "Authorization: Bearer kjiodf98nsdfh98sd98husiusd78"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Status 200",
+            "schema" : {
+              "$ref" : "#/definitions/PagingRelationshipSimplified"
+            }
+          },
+          "400" : {
+            "description" : "Status 400",
+            "schema" : {
+              "$ref" : "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "clientId",
+        "in" : "path",
+        "required" : true,
+        "type" : "string",
+        "description" : "A comma-separated list of the Croesus IDs for the client."
+      } ],
+      "x-restlet" : {
+        "section" : "Relationships"
+      }
+    },
+    "/transactions/{transactionId}" : {
+      "get" : {
+        "summary" : "Get a transaction.",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "orderBy",
+          "in" : "query",
+          "required" : false,
+          "type" : "string",
+          "description" : "Field name that will be used to sort.\n\nThe supported target fields are:\n\n- TransactionDate\n\n- SecurityDescription\n\n- SettlementDate\n\n- TransactionCurrency\n\n- Total\n\n- ProcessDate (default; descending)\n\n- AccountNumber\n\n- ClientLongName"
+        }, {
+          "name" : "Authorization",
+          "in" : "header",
+          "required" : false,
+          "type" : "string",
+          "description" : "A valid access token.",
+          "x-example" : "Authorization: Bearer kjiodf98nsdfh98sd98husiusd78"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Status 200",
+            "schema" : {
+              "$ref" : "#/definitions/PagingTransaction"
+            }
+          },
+          "400" : {
+            "description" : "Status 400",
+            "schema" : {
+              "$ref" : "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "transactionId",
+        "in" : "path",
+        "required" : true,
+        "type" : "string",
+        "description" : "A Croesus IDs for the transaction."
+      } ],
+      "x-restlet" : {
+        "section" : "Transactions"
+      }
+    },
+    "/accounts/{accountId}/Transactions" : {
+      "get" : {
+        "summary" : "Get the list of transaction for given accounts.",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "transactionTypeCode",
+          "in" : "query",
+          "required" : false,
+          "type" : "array",
+          "description" : "The transaction type code used to filter the response. If it applies, only the resources with the matching type will be included in the response.",
+          "items" : {
+            "type" : "integer"
+          }
+        }, {
+          "name" : "orderBy",
+          "in" : "query",
+          "required" : false,
+          "type" : "string",
+          "description" : "Field name that will be used to sort.\n\nThe supported target fields are:\n\n- TransactionDate\n\n- SecurityDescription\n\n- SettlementDate\n\n- TransactionCurrency\n\n- Total\n\n- ProcessDate (default; descending)\n\n- AccountNumber\n\n- ClientLongName"
+        }, {
+          "name" : "before",
+          "in" : "query",
+          "required" : false,
+          "type" : "integer",
+          "description" : "Cursor that points to the start of the page of data that has been returned.\n\nIf neither the before nor the after is specified, the first page will be returned."
+        }, {
+          "name" : "after",
+          "in" : "query",
+          "required" : false,
+          "type" : "integer",
+          "description" : "Cursor that points to the end of the page of data that has been returned.\n\nIf neither the before nor the after is specified, the first page will be returned."
+        }, {
+          "name" : "pageLimit",
+          "in" : "query",
+          "required" : false,
+          "type" : "integer",
+          "description" : "Number of elements to return, for the current page. Fewer elements may be returned if it is the last page.",
+          "default" : 50,
+          "minimum" : 1,
+          "maximum" : 500
+        }, {
+          "name" : "periodStart",
+          "in" : "query",
+          "required" : false,
+          "type" : "string",
+          "format" : "date",
+          "description" : "The start of the period used to filter the requested resources."
+        }, {
+          "name" : "periodEnd",
+          "in" : "query",
+          "required" : false,
+          "type" : "string",
+          "format" : "date",
+          "description" : "The end of the period used to filter the requested resources."
+        }, {
+          "name" : "Authorization",
+          "in" : "header",
+          "required" : false,
+          "type" : "string",
+          "description" : "A valid access token.",
+          "x-example" : "Authorization: Bearer kjiodf98nsdfh98sd98husiusd78"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Status 200",
+            "schema" : {
+              "$ref" : "#/definitions/PagingTransaction"
+            }
+          },
+          "400" : {
+            "description" : "Status 400",
+            "schema" : {
+              "$ref" : "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "accountId",
+        "in" : "path",
+        "required" : true,
+        "type" : "string",
+        "description" : "A comma-separated list of the Croesus IDs for the account."
+      } ],
+      "x-restlet" : {
+        "section" : "Transactions"
+      }
+    },
+    "/clients/{clientId}/Transactions" : {
+      "get" : {
+        "summary" : "Get the list of transaction for given clients.",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "transactionTypeCode",
+          "in" : "query",
+          "required" : false,
+          "type" : "array",
+          "description" : "The transaction type code used to filter the response. If it applies, only the resources with the matching type will be included in the response.",
+          "items" : {
+            "type" : "integer"
+          }
+        }, {
+          "name" : "orderBy",
+          "in" : "query",
+          "required" : false,
+          "type" : "string",
+          "description" : "Field name that will be used to sort.\n\nThe supported target fields are:\n\n- TransactionDate\n\n- SecurityDescription\n\n- SettlementDate\n\n- TransactionCurrency\n\n- Total\n\n- ProcessDate (default; descending)\n\n- AccountNumber\n\n- ClientLongName"
+        }, {
+          "name" : "before",
+          "in" : "query",
+          "required" : false,
+          "type" : "integer",
+          "description" : "Cursor that points to the start of the page of data that has been returned.\n\nIf neither the before nor the after is specified, the first page will be returned."
+        }, {
+          "name" : "after",
+          "in" : "query",
+          "required" : false,
+          "type" : "integer",
+          "description" : "Cursor that points to the end of the page of data that has been returned.\n\nIf neither the before nor the after is specified, the first page will be returned."
+        }, {
+          "name" : "pageLimit",
+          "in" : "query",
+          "required" : false,
+          "type" : "integer",
+          "description" : "Number of elements to return, for the current page. Fewer elements may be returned if it is the last page.",
+          "default" : 50,
+          "minimum" : 1,
+          "maximum" : 500
+        }, {
+          "name" : "periodStart",
+          "in" : "query",
+          "required" : false,
+          "type" : "string",
+          "format" : "date",
+          "description" : "The start of the period used to filter the requested resources."
+        }, {
+          "name" : "periodEnd",
+          "in" : "query",
+          "required" : false,
+          "type" : "string",
+          "format" : "date",
+          "description" : "The end of the period used to filter the requested resources."
+        }, {
+          "name" : "Authorization",
+          "in" : "header",
+          "required" : false,
+          "type" : "string",
+          "description" : "A valid access token.",
+          "x-example" : "Authorization: Bearer kjiodf98nsdfh98sd98husiusd78"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Status 200",
+            "schema" : {
+              "$ref" : "#/definitions/PagingTransaction"
+            }
+          },
+          "400" : {
+            "description" : "Status 400",
+            "schema" : {
+              "$ref" : "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "clientId",
+        "in" : "path",
+        "required" : true,
+        "type" : "string",
+        "description" : "A comma-separated list of the Croesus IDs for the client"
+      } ],
+      "x-restlet" : {
+        "section" : "Transactions"
+      }
+    },
+    "/relationships/{relationshipId}/Transactions" : {
+      "get" : {
+        "summary" : "Get the list of transaction for given relationships.",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "transactionTypeCode",
+          "in" : "query",
+          "required" : false,
+          "type" : "array",
+          "description" : "The transaction type code used to filter the response. If it applies, only the resources with the matching type will be included in the response.",
+          "items" : {
+            "type" : "integer"
+          }
+        }, {
+          "name" : "orderBy",
+          "in" : "query",
+          "required" : false,
+          "type" : "string",
+          "description" : "Field name that will be used to sort.\n\nThe supported target fields are:\n\n- TransactionDate\n\n- SecurityDescription\n\n- SettlementDate\n\n- TransactionCurrency\n\n- Total\n\n- ProcessDate (default; descending)\n\n- AccountNumber\n\n- ClientLongName"
+        }, {
+          "name" : "before",
+          "in" : "query",
+          "required" : false,
+          "type" : "integer",
+          "description" : "Cursor that points to the start of the page of data that has been returned.\n\nIf neither the before nor the after is specified, the first page will be returned."
+        }, {
+          "name" : "after",
+          "in" : "query",
+          "required" : false,
+          "type" : "integer",
+          "description" : "Cursor that points to the end of the page of data that has been returned.\n\nIf neither the before nor the after is specified, the first page will be returned."
+        }, {
+          "name" : "pageLimit",
+          "in" : "query",
+          "required" : false,
+          "type" : "integer",
+          "description" : "Number of elements to return, for the current page. Fewer elements may be returned if it is the last page.",
+          "default" : 50,
+          "minimum" : 1,
+          "maximum" : 500
+        }, {
+          "name" : "periodStart",
+          "in" : "query",
+          "required" : false,
+          "type" : "string",
+          "format" : "date",
+          "description" : "The start of the period used to filter the requested resources."
+        }, {
+          "name" : "periodEnd",
+          "in" : "query",
+          "required" : false,
+          "type" : "string",
+          "format" : "date",
+          "description" : "The end of the period used to filter the requested resources."
+        }, {
+          "name" : "Authorization",
+          "in" : "header",
+          "required" : false,
+          "type" : "string",
+          "description" : "A valid access token.",
+          "x-example" : "Authorization: Bearer kjiodf98nsdfh98sd98husiusd78"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Status 200",
+            "schema" : {
+              "$ref" : "#/definitions/PagingTransaction"
+            }
+          },
+          "400" : {
+            "description" : "Status 400",
+            "schema" : {
+              "$ref" : "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "relationshipId",
+        "in" : "path",
+        "required" : true,
+        "type" : "string",
+        "description" : "A comma-separated list of the Croesus IDs for the relationship"
+      } ],
+      "x-restlet" : {
+        "section" : "Transactions"
+      }
+    }
+  },
+  "securityDefinitions" : {
+    "Bearer" : {
+      "description" : "Token obtained by the login endpoint",
+      "type" : "apiKey",
+      "name" : "Authorization",
+      "in" : "header"
+    }
+  },
+  "definitions" : {
+    "Account" : {
+      "type" : "object",
+      "required" : [ "AccountId" ],
+      "properties" : {
+        "AccountId" : {
+          "type" : "integer",
+          "description" : "Unique Croesus account identifier"
+        },
+        "Number" : {
+          "type" : "string",
+          "description" : "Firm account number"
+        },
+        "ShortName" : {
+          "type" : "string",
+          "description" : "Account holder's short name",
+          "maxLength" : 16
+        },
+        "LongName" : {
+          "type" : "string",
+          "description" : "Account holder's full name"
+        },
+        "TypeCode" : {
+          "type" : "string",
+          "description" : "Account type identifier",
+          "enum" : [ "Dictionary()" ]
+        },
+        "TypeDescription" : {
+          "type" : "string",
+          "description" : "Account type description"
+        },
+        "SubtypeCode" : {
+          "type" : "string",
+          "description" : "Account subtype code"
+        },
+        "SubTypeDescription" : {
+          "type" : "string",
+          "description" : "Account subtype description"
+        },
+        "ClientId" : {
+          "type" : "integer",
+          "description" : "Unique Croesus client identifier"
+        },
+        "ClientNumber" : {
+          "type" : "string",
+          "description" : "Firm client number"
+        },
+        "InvestmentAdvisorCode" : {
+          "type" : "string",
+          "description" : "IA Code"
+        },
+        "InvestmentObjectiveId" : {
+          "type" : "integer",
+          "description" : "Unique Croesus investment objective identifier"
+        },
+        "InvestmentObjective" : {
+          "type" : "string",
+          "description" : "Investment objective description"
+        },
+        "AccountCurrency" : {
+          "type" : "string",
+          "description" : "Account currency"
+        },
+        "RequestedCurrency" : {
+          "type" : "string",
+          "description" : "Currency to convert the amounts into, if different than account currency.\n\nWhen there is a requested currency, the amounts returned are converted based \non the requested currency when necessary"
+        },
+        "Balance" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "Cash balance of the account as at settlement date."
+        },
+        "TotalValue" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "Account market value including accrued interest and dividends"
+        },
+        "InceptionDate" : {
+          "type" : "string",
+          "format" : "date",
+          "description" : "Account inception date",
+          "example" : "2018-02-28"
+        },
+        "CreationDate" : {
+          "type" : "string",
+          "format" : "date",
+          "description" : "Account creation date in Croesus",
+          "example" : "2018-02-28"
+        },
+        "LastTransactionDate" : {
+          "type" : "string",
+          "format" : "date",
+          "description" : "Date of the last transaction in the account",
+          "example" : "2018-02-28"
+        },
+        "LastTradeDate" : {
+          "type" : "string",
+          "format" : "date",
+          "description" : "Date of the last trade in the account",
+          "example" : "2018-02-28"
+        },
+        "CloseDate" : {
+          "type" : "string",
+          "format" : "date",
+          "description" : "Account closing date",
+          "example" : "2018-02-28"
+        },
+        "ClassCode" : {
+          "type" : "string",
+          "description" : "Account classification code"
+        },
+        "ClassDescription" : {
+          "type" : "string",
+          "description" : "Account classification description"
+        },
+        "StatusCode" : {
+          "type" : "string",
+          "description" : "Account status code"
+        },
+        "StatusDescription" : {
+          "type" : "string",
+          "description" : "Account status"
+        }
+      },
+      "x-restlet" : {
+        "section" : "Object Model"
+      }
+    },
+    "Address" : {
+      "type" : "object",
+      "required" : [ "AddressId" ],
+      "properties" : {
+        "AddressId" : {
+          "type" : "integer",
+          "description" : "Unique Croesus address identifier"
+        },
+        "Line1" : {
+          "type" : "string",
+          "description" : "Address - line 1"
+        },
+        "Line 2" : {
+          "type" : "string",
+          "description" : "Address - line 2"
+        },
+        "Line3" : {
+          "type" : "string",
+          "description" : "Address - line 3"
+        },
+        "City" : {
+          "type" : "string",
+          "description" : "City / Province"
+        },
+        "ZipCode" : {
+          "type" : "string",
+          "description" : "Zip code"
+        },
+        "Country" : {
+          "type" : "string",
+          "description" : "Name of the Country"
+        },
+        "AddressType" : {
+          "type" : "string",
+          "description" : "Type of address"
+        },
+        "StartDate" : {
+          "type" : "string",
+          "format" : "date",
+          "description" : "Date on which the address becomes valid",
+          "example" : "2005-02-28"
+        },
+        "EndDate" : {
+          "type" : "string",
+          "format" : "date",
+          "description" : "Date on which the address is no longer valid",
+          "example" : "2018-06-21"
+        },
+        "IsMailingAddress" : {
+          "type" : "boolean",
+          "description" : "Indicates whether this address is the mailing address"
+        }
+      },
+      "x-restlet" : {
+        "section" : "Object Model"
+      }
+    },
+    "AssetAllocationPosition" : {
+      "type" : "object",
+      "required" : [ "PositionId" ],
+      "properties" : {
+        "PositionId" : {
+          "type" : "integer",
+          "description" : "Unique Croesus position identifier\n\nUnique per asset class"
+        },
+        "AccountNumber" : {
+          "type" : "string",
+          "description" : "Firm account number\n\nCalculation is based on current dividend payment frequency and the amount of the last dividend paid\n\nPrimary root, which corresponds to the primary client. Its number is used as the grouping identification number."
+        },
+        "Quantity" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "Position quantity\n\nWeighted average of each position's cost yields"
+        },
+        "SecurityDescription" : {
+          "type" : "string",
+          "description" : "Security description"
+        },
+        "AdjustedCostBase" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "BookValue" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "Position book value"
+        },
+        "MarketPrice" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "Position's security market price"
+        },
+        "MarketValue" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "Position market value.\n\nMarket value excluding accrued interest and dividends"
+        },
+        "MarketValuePercentage" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "Position market value (%).\n\nPosition market value as a percentage of total portfolio value"
+        },
+        "GainLoss" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "Position realized gain or loss"
+        },
+        "GainLossPercentage" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "Percentage of realized gains and losses for the position"
+        },
+        "Symbol" : {
+          "type" : "string",
+          "description" : "Position's security symbol"
+        },
+        "SecurityId" : {
+          "type" : "integer",
+          "description" : "Unique Croesus security identifier"
+        },
+        "Cusip" : {
+          "type" : "string",
+          "description" : "Security Cusip number"
+        },
+        "ClientId" : {
+          "type" : "integer",
+          "description" : "Unique Croesus client identifier."
+        },
+        "ClientNumber" : {
+          "type" : "string",
+          "description" : "Firm client number"
+        },
+        "InvestmentCost" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "Position investment cost"
+        },
+        "CostYield" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "Position cost yield"
+        },
+        "MarketYield" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "Position market yield"
+        },
+        "ModifiedDuration" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "AccruedInterestDividend" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "AnnualIncome" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "YieldToMaturityCostNominal" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "YieldToMaturityMarketNominal" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "CurrentYield" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "YieldToDateACBNominal" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "BookValueInvestmentCost" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "SecurityColorCodeARGB" : {
+          "type" : "string"
+        },
+        "ProjectedIncome" : {
+          "$ref" : "#/definitions/ProjectedIncome"
+        }
+      },
+      "x-restlet" : {
+        "section" : "Object Model"
+      }
+    },
+    "Client (full)" : {
+      "type" : "object",
+      "required" : [ "ClientId" ],
+      "properties" : {
+        "ClientId" : {
+          "type" : "integer",
+          "description" : "Unique Croesus client identifier"
+        },
+        "Number" : {
+          "type" : "string",
+          "description" : "Firm client number"
+        },
+        "ShortName" : {
+          "type" : "string",
+          "description" : "Client's short name",
+          "maxLength" : 16
+        },
+        "LongName" : {
+          "type" : "string",
+          "description" : "Client's long name"
+        },
+        "InvestmentAdvisorCode" : {
+          "type" : "string",
+          "description" : "IA Code"
+        },
+        "InvestmentObjectiveId" : {
+          "type" : "integer",
+          "description" : "Unique Croesus investment objective identifier"
+        },
+        "InvestmentObjective" : {
+          "type" : "string",
+          "description" : "Investment objective description"
+        },
+        "ClientCurrency" : {
+          "type" : "string",
+          "description" : "Client currency"
+        },
+        "RequestedCurrency" : {
+          "type" : "string",
+          "description" : "Currency to convert the amounts into, if different than account currency.\n\nWhen there is a requested currency, the amounts returned are converted based \non the requested currency when necessary"
+        },
+        "Gender" : {
+          "type" : "string",
+          "description" : "Client gender code",
+          "enum" : [ "Dictionary()" ]
+        },
+        "GenderDescription" : {
+          "type" : "string",
+          "description" : "Client gender description"
+        },
+        "Balance" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "Cash balance of all of the client accounts as at settlement date"
+        },
+        "Margin" : {
+          "type" : "string",
+          "description" : "Client excess margin"
+        },
+        "TotalValue" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "Client market value including accrued interest and dividends"
+        },
+        "LastContactDate" : {
+          "type" : "string",
+          "format" : "date",
+          "description" : "Date of the last contact with the client",
+          "example" : "2018-02-28"
+        },
+        "DateOfBirth" : {
+          "type" : "string",
+          "format" : "date",
+          "description" : "Client date of birth",
+          "example" : "1962-03-21"
+        },
+        "Language" : {
+          "type" : "string",
+          "description" : "Client's preferred language",
+          "example" : "2018-02-28"
+        },
+        "Addresses" : {
+          "type" : "array",
+          "description" : "List of the client's mailing addresses",
+          "items" : {
+            "$ref" : "#/definitions/Address"
+          }
+        },
+        "Phones" : {
+          "type" : "array",
+          "description" : "List of the client's telephone numbers",
+          "items" : {
+            "$ref" : "#/definitions/Phone"
+          }
+        },
+        "Emails" : {
+          "type" : "array",
+          "description" : "List of the client's email addresses",
+          "items" : {
+            "$ref" : "#/definitions/Email"
+          }
+        },
+        "Products" : {
+          "type" : "array",
+          "description" : "List of the client's products",
+          "items" : {
+            "$ref" : "#/definitions/Product"
+          }
+        },
+        "Services" : {
+          "type" : "array",
+          "description" : "List of the client's services",
+          "items" : {
+            "$ref" : "#/definitions/Service"
+          }
+        }
+      },
+      "x-restlet" : {
+        "section" : "Object Model"
+      }
+    },
+    "Client (simplified)" : {
+      "type" : "object",
+      "required" : [ "ClientId" ],
+      "properties" : {
+        "ClientId" : {
+          "type" : "integer",
+          "description" : "Unique Croesus client identifier"
+        },
+        "Number" : {
+          "type" : "string",
+          "description" : "Firm client number"
+        },
+        "ShortName" : {
+          "type" : "string",
+          "description" : "Client's short name",
+          "maxLength" : 16
+        },
+        "LongName" : {
+          "type" : "string",
+          "description" : "Client's long name"
+        },
+        "InvestmentAdvisorCode" : {
+          "type" : "string",
+          "description" : "IA Code"
+        },
+        "InvestmentObjectiveId" : {
+          "type" : "integer",
+          "description" : "Unique Croesus investment objective identifier"
+        },
+        "InvestmentObjective" : {
+          "type" : "string",
+          "description" : "Investment objective description"
+        },
+        "ClientCurrency" : {
+          "type" : "string",
+          "description" : "Client currency"
+        },
+        "RequestedCurrency" : {
+          "type" : "string",
+          "description" : "Currency to convert the amounts into, if different than account currency.\n\nWhen there is a requested currency, the amounts returned are converted based \non the requested currency when necessary"
+        },
+        "Gender" : {
+          "type" : "string",
+          "description" : "Client gender code",
+          "enum" : [ "Dictionary()" ]
+        },
+        "GenderDescription" : {
+          "type" : "string",
+          "description" : "Client gender description"
+        },
+        "Balance" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "Cash balance of all of the client accounts as at settlement date"
+        },
+        "Margin" : {
+          "type" : "string",
+          "description" : "Client excess margin"
+        },
+        "TotalValue" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "Client market value including accrued interest and dividends"
+        },
+        "LastContactDate" : {
+          "type" : "string",
+          "format" : "date",
+          "description" : "Date of the last contact with the client",
+          "example" : "2018-02-28"
+        },
+        "DateOfBirth" : {
+          "type" : "string",
+          "format" : "date",
+          "description" : "Client date of birth",
+          "example" : "1962-03-21"
+        },
+        "Language" : {
+          "type" : "string",
+          "description" : "Client's preferred language",
+          "example" : "2018-02-28"
+        }
+      },
+      "x-restlet" : {
+        "section" : "Object Model"
+      }
+    },
+    "Email" : {
+      "type" : "object",
+      "properties" : {
+        "Consent" : {
+          "type" : "boolean"
+        },
+        "IsDefaultEmail" : {
+          "type" : "boolean",
+          "description" : "Indicates whether this email address is the default email address"
+        },
+        "EmailAddress" : {
+          "type" : "string",
+          "description" : "Email address"
+        },
+        "EmailType" : {
+          "type" : "integer",
+          "description" : "Type of email"
+        }
+      },
+      "x-restlet" : {
+        "section" : "Object Model"
+      }
+    },
+    "Error" : {
+      "type" : "object",
+      "required" : [ "Status" ],
+      "properties" : {
+        "Status" : {
+          "type" : "integer",
+          "description" : "The HTTP status code (also returned in the response header; see Response Status Codes Response Status Codes for more information).",
+          "minimum" : 400,
+          "maximum" : 599
+        },
+        "Message" : {
+          "type" : "string",
+          "description" : "A short description of the cause of the error.",
+          "example" : "Bad Request"
+        },
+        "Detail" : {
+          "type" : "string",
+          "description" : "A detailed description of the cause of the error. Provides additionnal information.",
+          "example" : "Bad query parameter [$size]: Invalid integer value [abc]"
+        }
+      },
+      "description" : "This general error structure is used throughout this API.",
+      "x-restlet" : {
+        "section" : "Object Model"
+      }
+    },
+    "Income" : {
+      "type" : "object",
+      "properties" : {
+        "IncomeAmount" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "Projected income amount (monthly)"
+        },
+        "Period" : {
+          "type" : "string",
+          "description" : "Year and Month"
+        }
+      },
+      "x-restlet" : {
+        "section" : "Object Model"
+      }
+    },
+    "Paging" : {
+      "type" : "object",
+      "required" : [ "Items" ],
+      "properties" : {
+        "Items" : {
+          "type" : "array",
+          "description" : "The requested data.",
+          "items" : {
+            "type" : "object"
+          }
+        },
+        "PageLimit" : {
+          "type" : "integer",
+          "description" : "The maximum number of items in the response (as set in the query or by default).",
+          "default" : 50,
+          "minimum" : 1,
+          "maximum" : 500
+        },
+        "Next" : {
+          "type" : "integer",
+          "description" : "Id to obtain next page.\nEmpty if there is no next page (i.e. the current page is the last page)."
+        },
+        "Previous" : {
+          "type" : "integer",
+          "description" : "Id to obtain previous page.\nEmpty if there is no previous page (i.e. the current page is the first page)."
+        },
+        "NumberOfItems" : {
+          "type" : "integer",
+          "description" : "The total number of items returned in the current page"
+        }
+      },
+      "description" : "This general paging structure is used throughout this API.",
+      "x-restlet" : {
+        "section" : "Object Model"
+      }
+    },
+    "PagingAccount" : {
+      "type" : "object",
+      "required" : [ "Items" ],
+      "properties" : {
+        "Items" : {
+          "type" : "array",
+          "description" : "The requested data.",
+          "items" : {
+            "$ref" : "#/definitions/Account"
+          }
+        },
+        "PageLimit" : {
+          "type" : "integer",
+          "description" : "The maximum number of items in the response (as set in the query or by default).",
+          "default" : 50,
+          "minimum" : 1,
+          "maximum" : 500
+        },
+        "Next" : {
+          "type" : "integer",
+          "description" : "Id to obtain next page.\nEmpty if there is no next page (i.e. the current page is the last page)."
+        },
+        "Previous" : {
+          "type" : "integer",
+          "description" : "Id to obtain previous page.\nEmpty if there is no previous page (i.e. the current page is the first page)."
+        },
+        "NumberOfItems" : {
+          "type" : "integer",
+          "description" : "The total number of items returned in the current page"
+        }
+      },
+      "description" : "Paging structure is used to return a list of accounts.",
+      "x-restlet" : {
+        "section" : "Object Model"
+      }
+    },
+    "PagingClientFull" : {
+      "type" : "object",
+      "required" : [ "Items" ],
+      "properties" : {
+        "Items" : {
+          "type" : "array",
+          "description" : "The requested data.",
+          "items" : {
+            "$ref" : "#/definitions/Client (full)"
+          }
+        },
+        "PageLimit" : {
+          "type" : "integer",
+          "description" : "The maximum number of items in the response (as set in the query or by default).",
+          "default" : 50,
+          "minimum" : 1,
+          "maximum" : 500
+        },
+        "Next" : {
+          "type" : "integer",
+          "description" : "Id to obtain next page.\nEmpty if there is no next page (i.e. the current page is the last page)."
+        },
+        "Previous" : {
+          "type" : "integer",
+          "description" : "Id to obtain previous page.\nEmpty if there is no previous page (i.e. the current page is the first page)."
+        },
+        "NumberOfItems" : {
+          "type" : "integer",
+          "description" : "The total number of items returned in the current page"
+        }
+      },
+      "description" : "Paging structure is used to return a list of clients (full).",
+      "x-restlet" : {
+        "section" : "Object Model"
+      }
+    },
+    "PagingClientSimplified" : {
+      "type" : "object",
+      "required" : [ "Items" ],
+      "properties" : {
+        "Items" : {
+          "type" : "array",
+          "description" : "The requested data.",
+          "items" : {
+            "$ref" : "#/definitions/Client (simplified)"
+          }
+        },
+        "PageLimit" : {
+          "type" : "integer",
+          "description" : "The maximum number of items in the response (as set in the query or by default).",
+          "default" : 50,
+          "minimum" : 1,
+          "maximum" : 500
+        },
+        "Next" : {
+          "type" : "integer",
+          "description" : "Id to obtain next page.\nEmpty if there is no next page (i.e. the current page is the last page)."
+        },
+        "Previous" : {
+          "type" : "integer",
+          "description" : "Id to obtain previous page.\nEmpty if there is no previous page (i.e. the current page is the first page)."
+        },
+        "NumberOfItems" : {
+          "type" : "integer",
+          "description" : "The total number of items returned in the current page"
+        }
+      },
+      "description" : "Paging structure is used to return a list of clients (simplified).",
+      "x-restlet" : {
+        "section" : "Object Model"
+      }
+    },
+    "PagingRelationshipFull" : {
+      "type" : "object",
+      "required" : [ "Items" ],
+      "properties" : {
+        "Items" : {
+          "type" : "array",
+          "description" : "The requested data.",
+          "items" : {
+            "$ref" : "#/definitions/Relationship (full)"
+          }
+        },
+        "PageLimit" : {
+          "type" : "integer",
+          "description" : "The maximum number of items in the response (as set in the query or by default).",
+          "default" : 50,
+          "minimum" : 1,
+          "maximum" : 500
+        },
+        "Next" : {
+          "type" : "integer",
+          "description" : "Id to obtain next page.\nEmpty if there is no next page (i.e. the current page is the last page)."
+        },
+        "Previous" : {
+          "type" : "integer",
+          "description" : "Id to obtain previous page.\nEmpty if there is no previous page (i.e. the current page is the first page)."
+        },
+        "NumberOfItems" : {
+          "type" : "integer",
+          "description" : "The total number of items returned in the current page"
+        }
+      },
+      "description" : "Paging structure is used to return a list of relationships (full).",
+      "x-restlet" : {
+        "section" : "Object Model"
+      }
+    },
+    "PagingRelationshipSimplified" : {
+      "type" : "object",
+      "required" : [ "Items" ],
+      "properties" : {
+        "Items" : {
+          "type" : "array",
+          "description" : "The requested data.",
+          "items" : {
+            "$ref" : "#/definitions/Relationship (simplified)"
+          }
+        },
+        "PageLimit" : {
+          "type" : "integer",
+          "description" : "The maximum number of items in the response (as set in the query or by default).",
+          "default" : 50,
+          "minimum" : 1,
+          "maximum" : 500
+        },
+        "Next" : {
+          "type" : "integer",
+          "description" : "Id to obtain next page.\nEmpty if there is no next page (i.e. the current page is the last page)."
+        },
+        "Previous" : {
+          "type" : "integer",
+          "description" : "Id to obtain previous page.\nEmpty if there is no previous page (i.e. the current page is the first page)."
+        },
+        "NumberOfItems" : {
+          "type" : "integer",
+          "description" : "The total number of items returned in the current page"
+        }
+      },
+      "description" : "Paging structure is used to return a list of relationships (simplified).",
+      "x-restlet" : {
+        "section" : "Object Model"
+      }
+    },
+    "PagingTransaction" : {
+      "type" : "object",
+      "required" : [ "Items" ],
+      "properties" : {
+        "Items" : {
+          "type" : "array",
+          "description" : "The requested data.",
+          "items" : {
+            "$ref" : "#/definitions/Transaction"
+          }
+        },
+        "PageLimit" : {
+          "type" : "integer",
+          "description" : "The maximum number of items in the response (as set in the query or by default).",
+          "default" : 50,
+          "minimum" : 1,
+          "maximum" : 500
+        },
+        "Next" : {
+          "type" : "integer",
+          "description" : "Id to obtain next page.\nEmpty if there is no next page (i.e. the current page is the last page)."
+        },
+        "Previous" : {
+          "type" : "integer",
+          "description" : "Id to obtain previous page.\nEmpty if there is no previous page (i.e. the current page is the first page)."
+        },
+        "NumberOfItems" : {
+          "type" : "integer",
+          "description" : "The total number of items returned in the current page"
+        }
+      },
+      "description" : "Paging structure is used to return a list of transactions.",
+      "x-restlet" : {
+        "section" : "Object Model"
+      }
+    },
+    "Phone" : {
+      "type" : "object",
+      "required" : [ "PhoneId" ],
+      "properties" : {
+        "PhoneId" : {
+          "type" : "integer",
+          "description" : "Unique Croesus phone identifier"
+        },
+        "PhoneNumber" : {
+          "type" : "string",
+          "description" : "Phone number"
+        },
+        "PhoneType" : {
+          "type" : "string",
+          "description" : "Type of phone number"
+        },
+        "DisplayOrder" : {
+          "type" : "integer",
+          "description" : "Phone number display rank"
+        },
+        "IsReadOnly" : {
+          "type" : "boolean",
+          "description" : "Indicates whether this phone number is editable"
+        }
+      },
+      "x-restlet" : {
+        "section" : "Object Model"
+      }
+    },
+    "PortfolioAssetAllocation" : {
+      "type" : "object",
+      "required" : [ "PortfolioAssetAllocationId" ],
+      "properties" : {
+        "PortfolioAssetAllocationId" : {
+          "type" : "integer",
+          "description" : "Portfolio's asset class identifier.\n\nUnique per asset class"
+        },
+        "Description" : {
+          "type" : "string",
+          "description" : "Asset Allocation Category description"
+        },
+        "Percentage" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "Ratio of the asset class' market value to the account's market value."
+        },
+        "AssetAllocation" : {
+          "$ref" : "#/definitions/PositionAssetAllocation"
+        },
+        "MarketValue" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "Market value is equal to the market price multiplied by the quantity of the position"
+        },
+        "BookValueACB" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "Average cost per share of a security adjusted to include any further purchases or reinvested dividends."
+        },
+        "AnnualIncome" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "Projected interests and dividends accumulated over a one-year period"
+        },
+        "TargetObjective" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "MinObjective" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "MaxObjective" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "GLBookValue" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "GLInvestedCapital" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "InvestedCapital" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "AccruedID" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "PositionQty" : {
+          "type" : "integer",
+          "description" : "Number of position held in the asset class"
+        },
+        "ColorCode" : {
+          "type" : "string"
+        },
+        "Positions" : {
+          "$ref" : "#/definitions/AssetAllocationPosition"
+        }
+      },
+      "x-restlet" : {
+        "section" : "Object Model"
+      }
+    },
+    "PortfolioByAssetClass" : {
+      "type" : "object",
+      "properties" : {
+        "AccountCount" : {
+          "type" : "integer",
+          "description" : "Number of accounts included in the portfolio"
+        },
+        "AccruedInterestDividend" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "Portfolio accrued interest and dividends.\n\nSum of accrued interest and dividends of each positions held in the portfolio"
+        },
+        "CumulatedInterestDividend" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "Portfolio accumulated interest and dividends.\n\nSum of accumulated interest and dividends of each position held in the portfolio"
+        },
+        "AnnualIncome" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "Portfolio annual income estimate.\n\nCalculation is based on current dividend payment frequency and the amount of the last dividend paid\n\nPrimary root, which corresponds to the primary client. Its number is used as the grouping identification number."
+        },
+        "AverageCostYield" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "Portfolio average cost yield.\n\nWeighted average of each position's cost yields"
+        },
+        "AverageMaturity" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "AverageModifiedDuration" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "Balance" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "Portfolio cash balance"
+        },
+        "BookValue" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "Portfolio book value"
+        },
+        "CumulatedCommission" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "Portfolio accumulated commission"
+        },
+        "Currency" : {
+          "type" : "string",
+          "description" : "Portfolio currency"
+        },
+        "Date" : {
+          "type" : "string",
+          "format" : "date"
+        },
+        "Margin" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "Portfolio excess margin"
+        },
+        "MarketValue" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "Portfolio market value.\n\nMarket value excluding accrued interest and dividends"
+        },
+        "NetInvestment" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "Portfolio net investment.\n\nNet amount of cash flows as at portfolio date; Inflows - Outflows"
+        },
+        "PositionQty" : {
+          "type" : "integer",
+          "description" : "Number of position held in the portfolio"
+        },
+        "TotalValue" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "Portfolio total value.\n\nTotal value is equal to market value plus accrued interest and dividends"
+        },
+        "ProjectedIncome" : {
+          "$ref" : "#/definitions/ProjectedIncome"
+        },
+        "AssetAllocations" : {
+          "$ref" : "#/definitions/PortfolioAssetAllocation"
+        }
+      },
+      "x-restlet" : {
+        "section" : "Object Model"
+      }
+    },
+    "PortfolioBySecurity" : {
+      "type" : "object",
+      "properties" : {
+        "AccountCount" : {
+          "type" : "integer",
+          "description" : "Number of accounts included in the portfolio"
+        },
+        "AccruedInterestDividend" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "Portfolio accrued interest and dividends.\n\nSum of accrued interest and dividends of each positions held in the portfolio"
+        },
+        "AnnualIncome" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "Portfolio annual income estimate.\n\nCalculation is based on current dividend payment frequency and the amount of the last dividend paid\n\nPrimary root, which corresponds to the primary client. Its number is used as the grouping identification number."
+        },
+        "AverageCostYield" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "Portfolio average cost yield.\n\nWeighted average of each position's cost yields"
+        },
+        "AverageMaturity" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "AverageModifiedDuration" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "Balance" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "Portfolio cash balance"
+        },
+        "BookValue" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "Portfolio book value"
+        },
+        "CumulatedCommission" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "Portfolio accumulated commission"
+        },
+        "CumulatedInterestDividend" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "Portfolio accumulated interest and dividends.\n\nSum of accumulated interest and dividends of each position held in the portfolio"
+        },
+        "Currency" : {
+          "type" : "string",
+          "description" : "Portfolio currency"
+        },
+        "Date" : {
+          "type" : "string",
+          "format" : "date"
+        },
+        "Margin" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "Portfolio excess margin"
+        },
+        "MarketValue" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "Portfolio market value.\n\nMarket value excluding accrued interest and dividends"
+        },
+        "NetInvestment" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "Portfolio net investment.\n\nNet amount of cash flows as at portfolio date; Inflows - Outflows"
+        },
+        "PositionQty" : {
+          "type" : "integer",
+          "description" : "Number of position held in the portfolio"
+        },
+        "TotalValue" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "Portfolio total value.\n\nTotal value is equal to market value plus accrued interest and dividends"
+        },
+        "Positions" : {
+          "$ref" : "#/definitions/PortfolioPosition"
+        },
+        "ProjectedIncome" : {
+          "$ref" : "#/definitions/ProjectedIncome"
+        }
+      },
+      "x-restlet" : {
+        "section" : "Object Model"
+      }
+    },
+    "PortfolioPosition" : {
+      "type" : "object",
+      "required" : [ "AccountId", "PositionId" ],
+      "properties" : {
+        "PositionId" : {
+          "type" : "integer",
+          "description" : "Unique Croesus position identifier\n\nUnique per asset class"
+        },
+        "AccountId" : {
+          "type" : "integer",
+          "description" : "Unique Croesus account identifier."
+        },
+        "AccountNumber" : {
+          "type" : "string",
+          "description" : "Firm account number\n\nCalculation is based on current dividend payment frequency and the amount of the last dividend paid\n\nPrimary root, which corresponds to the primary client. Its number is used as the grouping identification number."
+        },
+        "Quantity" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "Position quantity\n\nWeighted average of each position's cost yields"
+        },
+        "SecurityDescription" : {
+          "type" : "string",
+          "description" : "Security description"
+        },
+        "AdjustedCostBase" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "BookValue" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "Position book value"
+        },
+        "MarketPrice" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "Position's security market price"
+        },
+        "MarketValue" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "Position market value.\n\nMarket value excluding accrued interest and dividends"
+        },
+        "GainLoss" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "Position realized gains or losses"
+        },
+        "MarketValuePercentage" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "Position market value (%).\n\nPosition market value as a percentage of total portfolio value"
+        },
+        "GainLossPercentage" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "Percentage of realized gains and losses for the position"
+        },
+        "Symbol" : {
+          "type" : "string",
+          "description" : "Position's security symbol"
+        },
+        "SecurityId" : {
+          "type" : "integer",
+          "description" : "Unique Croesus security identifier"
+        },
+        "Cusip" : {
+          "type" : "string",
+          "description" : "Security Cusip number"
+        },
+        "ClientId" : {
+          "type" : "integer",
+          "description" : "Unique Croesus client identifier."
+        },
+        "ClientNumber" : {
+          "type" : "string"
+        },
+        "Category" : {
+          "type" : "integer"
+        },
+        "CategoryDescription" : {
+          "type" : "string"
+        },
+        "MainCategory" : {
+          "type" : "integer"
+        },
+        "MainCategoryDescription" : {
+          "type" : "string"
+        },
+        "InvestmentCost" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "CostYield" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "Position cost yield"
+        },
+        "MarketYield" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "Position market yield"
+        },
+        "ModifiedDuration" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "AccruedInterestDividend" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "AnnualIncome" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "YieldToMaturityCostNominal" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "YieldToMaturityMarketNominal" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "CurrentYield" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "YieldToDateACBNominal" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "BookValueInvestmentCost" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "SecurityColorCodeARGB" : {
+          "type" : "string"
+        },
+        "ProjectedIncome" : {
+          "$ref" : "#/definitions/ProjectedIncome"
+        },
+        "AssetAllocation" : {
+          "$ref" : "#/definitions/PositionAssetAllocation"
+        }
+      },
+      "x-restlet" : {
+        "section" : "Object Model"
+      }
+    },
+    "PositionAssetAllocation" : {
+      "type" : "object",
+      "required" : [ "PositionAssetAllocationId" ],
+      "properties" : {
+        "PositionAssetAllocationId" : {
+          "type" : "integer",
+          "description" : "Position's asset class identifier.\n\nUnique per asset class"
+        },
+        "Description" : {
+          "type" : "string",
+          "description" : "Asset Allocation Category description"
+        },
+        "Percentage" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "Ratio of the asset class' market value to the account's market value."
+        },
+        "AssetAllocation" : {
+          "$ref" : "#/definitions/PositionAssetAllocation"
+        }
+      },
+      "x-restlet" : {
+        "section" : "Object Model"
+      }
+    },
+    "Product" : {
+      "type" : "object",
+      "properties" : {
+        "Name" : {
+          "type" : "string",
+          "description" : "Product name"
+        },
+        "Value" : {
+          "type" : "boolean",
+          "description" : "Indicates whether the product is available"
+        }
+      },
+      "x-restlet" : {
+        "section" : "Object Model"
+      }
+    },
+    "ProjectedIncome" : {
+      "type" : "object",
+      "properties" : {
+        "Incomes" : {
+          "$ref" : "#/definitions/Income"
+        },
+        "PeriodTotal" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "Total projected income for the period."
+        },
+        "ExpiredSecuritiesTotal" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "Total projected income for the expired securities"
+        },
+        "Day" : {
+          "type" : "integer"
+        },
+        "Currency" : {
+          "type" : "string",
+          "description" : "Currency code (based on ISO 4217)"
+        }
+      },
+      "x-restlet" : {
+        "section" : "Object Model"
+      }
+    },
+    "Relationship (full)" : {
+      "type" : "object",
+      "required" : [ "RelationshipId" ],
+      "properties" : {
+        "RelationshipId" : {
+          "type" : "integer",
+          "description" : "Unique Croesus client identifier"
+        },
+        "Number" : {
+          "type" : "string",
+          "description" : "Relationship number"
+        },
+        "ShortName" : {
+          "type" : "string",
+          "description" : "Relationship's short name",
+          "maxLength" : 16
+        },
+        "LongName" : {
+          "type" : "string",
+          "description" : "Relationship's long name"
+        },
+        "InvestmentAdvisorCode" : {
+          "type" : "string",
+          "description" : "IA Code"
+        },
+        "RelationshipRepresentativeId" : {
+          "type" : "integer",
+          "description" : "Unique Croesus client identifier that is the primary contact for the relationship"
+        },
+        "RelationshipRepresentativeNumber" : {
+          "type" : "string",
+          "description" : "Number of the client that is the primary contact for the relationship"
+        },
+        "RelationshipRepresentativeShortName" : {
+          "type" : "string",
+          "description" : "Short name of the client that is the primary contact for the relationship"
+        },
+        "RelationshipRepresentativeLongName" : {
+          "type" : "string",
+          "description" : "Long name of the client that is the primary contact for the relationship"
+        },
+        "RelationshipCurrency" : {
+          "type" : "string",
+          "description" : "Relationship currency"
+        },
+        "RequestedCurrency" : {
+          "type" : "string",
+          "description" : "Currency in which the information is returned.\n\nAmounts are converted from the relationship currency to the requested currency."
+        },
+        "Balance" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "Cash balance of the relationship as at settlement date"
+        },
+        "Margin" : {
+          "type" : "string",
+          "description" : "Client excess margin"
+        },
+        "TotalValue" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "Relationship market value including accrued interest and dividends"
+        },
+        "DefaultEmail" : {
+          "type" : "string",
+          "description" : "Relationship default email address"
+        },
+        "InvestmentObjectiveId" : {
+          "type" : "string",
+          "description" : "Croesus unique investment objective identifier"
+        },
+        "InvestmentObjective" : {
+          "type" : "string",
+          "description" : "Description of the relationship's investment objective"
+        },
+        "RelationshipTypeCode" : {
+          "type" : "string",
+          "description" : "Relationship type code"
+        },
+        "RelationshipTypeDescription" : {
+          "type" : "string",
+          "description" : "Relationship type description"
+        },
+        "Addresses" : {
+          "type" : "array",
+          "description" : "List of the relationship's mailing addresses",
+          "items" : {
+            "$ref" : "#/definitions/Address"
+          }
+        },
+        "Phones" : {
+          "type" : "array",
+          "description" : "List of the relationship's telephone numbers",
+          "items" : {
+            "$ref" : "#/definitions/Phone"
+          }
+        },
+        "Emails" : {
+          "type" : "array",
+          "description" : "List of the relationship's email addresses",
+          "items" : {
+            "$ref" : "#/definitions/Email"
+          }
+        },
+        "Products" : {
+          "type" : "array",
+          "description" : "List of the relationship's products",
+          "items" : {
+            "$ref" : "#/definitions/Product"
+          }
+        },
+        "Services" : {
+          "type" : "array",
+          "description" : "List of the relationship's services",
+          "items" : {
+            "$ref" : "#/definitions/Service"
+          }
+        }
+      },
+      "x-restlet" : {
+        "section" : "Object Model"
+      }
+    },
+    "Relationship (simplified)" : {
+      "type" : "object",
+      "required" : [ "RelationshipId" ],
+      "properties" : {
+        "RelationshipId" : {
+          "type" : "integer",
+          "description" : "Unique Croesus client identifier"
+        },
+        "Number" : {
+          "type" : "string",
+          "description" : "Relationship number"
+        },
+        "ShortName" : {
+          "type" : "string",
+          "description" : "Relationship's short name",
+          "maxLength" : 16
+        },
+        "LongName" : {
+          "type" : "string",
+          "description" : "Relationship's long name"
+        },
+        "InvestmentAdvisorCode" : {
+          "type" : "string",
+          "description" : "IA Code"
+        },
+        "RelationshipCurrency" : {
+          "type" : "string",
+          "description" : "Relationship currency"
+        },
+        "RequestedCurrency" : {
+          "type" : "string",
+          "description" : "Currency in which the information is returned.\n\nAmounts are converted from the relationship currency to the requested currency."
+        },
+        "Balance" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "Cash balance of the relationship as at settlement date"
+        },
+        "Margin" : {
+          "type" : "string",
+          "description" : "Client excess margin"
+        },
+        "TotalValue" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "Relationship market value including accrued interest and dividends"
+        },
+        "DefaultEmail" : {
+          "type" : "string",
+          "description" : "Relationship default email address"
+        },
+        "InvestmentObjectiveId" : {
+          "type" : "string",
+          "description" : "Croesus unique investment objective identifier"
+        },
+        "InvestmentObjective" : {
+          "type" : "string",
+          "description" : "Description of the relationship's investment objective"
+        },
+        "RelationshipTypeCode" : {
+          "type" : "string",
+          "description" : "Relationship type code"
+        },
+        "RelationshipTypeDescription" : {
+          "type" : "string",
+          "description" : "Relationship type description"
+        }
+      },
+      "x-restlet" : {
+        "section" : "Object Model"
+      }
+    },
+    "Service" : {
+      "type" : "object",
+      "properties" : {
+        "Name" : {
+          "type" : "string",
+          "description" : "Service name"
+        },
+        "Value" : {
+          "type" : "boolean",
+          "description" : "Indicates whether the service is available"
+        }
+      },
+      "x-restlet" : {
+        "section" : "Object Model"
+      }
+    },
+    "Transaction" : {
+      "type" : "object",
+      "required" : [ "TransactionId" ],
+      "properties" : {
+        "TransactionId" : {
+          "type" : "integer",
+          "description" : "Unique Croesus transaction identifier"
+        },
+        "Account number" : {
+          "type" : "string",
+          "description" : "Firm account number"
+        },
+        "ClientNumber" : {
+          "type" : "string",
+          "description" : "Firm client number\n\nPrimary root, which corresponds to the primary client. Its number is used as the grouping identification number."
+        },
+        "ProcessDate" : {
+          "type" : "string",
+          "format" : "date",
+          "description" : "Date on which the transaction was processed",
+          "example" : "2018-02-28"
+        },
+        "SettlementDate" : {
+          "type" : "string",
+          "format" : "date",
+          "description" : "The date by which a security must be paid for or sold",
+          "example" : "2018-02-28"
+        },
+        "TransactionDate" : {
+          "type" : "string",
+          "format" : "date",
+          "description" : "Date on which the transaction was traded",
+          "example" : "2018-02-28"
+        },
+        "TypeCode" : {
+          "type" : "string",
+          "description" : "Transaction type code"
+        },
+        "TypeLongDescription" : {
+          "type" : "string",
+          "description" : "Transaction type's long description"
+        },
+        "TypeShortDescription" : {
+          "type" : "string",
+          "description" : "Transaction type's short description"
+        },
+        "Symbol" : {
+          "type" : "string",
+          "description" : "Security symbol"
+        },
+        "SecurityDescription" : {
+          "type" : "string",
+          "description" : "Security description"
+        },
+        "FinancialInstrument" : {
+          "type" : "string",
+          "description" : "Security's financial instrument"
+        },
+        "SecurityMarket" : {
+          "type" : "string",
+          "description" : "Security market"
+        },
+        "SecurityColorCode" : {
+          "type" : "string",
+          "description" : "Security color code"
+        },
+        "SecurityColorCodeARGB" : {
+          "type" : "string",
+          "description" : "Security color code ARGB"
+        },
+        "Quantity" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "Transaction quantity"
+        },
+        "Price" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "TransactionCurrency" : {
+          "type" : "string",
+          "description" : "Transaction currency"
+        },
+        "Total" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "Transaction net amount"
+        },
+        "Commission" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "Commission on the transaction"
+        },
+        "GainsLosses" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "Amount of the gains and losses"
+        },
+        "Fees" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "Transaction fees"
+        },
+        "AccruedInterest" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "Amount of accrued interest"
+        },
+        "AdjustedCostBase" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "Adjusted cost base"
+        },
+        "PriceRate" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "AccountRate" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "GrossAmount" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "Gross amount of the transaction"
+        },
+        "PercentGainLoss" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "Percentage of gains and losses for the transaction"
+        },
+        "InterestPortion" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "Days" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "BookValue" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "Cashflow" : {
+          "type" : "number",
+          "format" : "double"
+        }
+      },
+      "x-restlet" : {
+        "section" : "Object Model"
+      }
+    }
+  },
+  "x-restlet" : {
+    "sections" : {
+      "Authentication" : {
+        "description" : "In order to authenticate using Croesus APIs, a user must first call the oauth2 token API. If successful, this call will return a session token that can be used to call all other APIs. To do so, the header \"Authorization\" must be used but this time with the token scheme followed by the session token obtained in the previous call.\n\nAlthough tokens can be sent as URL query-string parameters, this practice is not recommended as URL parameters can be stored in log files, which are not fully secure.\n# Basic Authentication (for demo/testing purposes only)\ncurl --request POST -H \"Authorization: Basic dXNlcm5hbWU6cGFzc3dvcmQ=\" -d \"\" /api/v1.1/login\n\n# Token Authentication (Request Header)\ncurl -H \"Authorization: Bearer 9a79c01c570145b780654c075a855218\" /api/v1.1/clients\n\n# Token Authentication (URI Query Parameter)\n/api/v1.1/clients?authToken=9a79c01c57-145b780654c075a855218\n\n# OAuth2 Authentication (JWT)\napi/v1.0/oauth2/token HTTP/1.1 Host: croesus.apis Content-Length: 902 content-type: application/json\n{\n\"grant_type\": \"urn:ietf:params:oauth:grant-type:jwt-bearer\",\n*\n\"assertion\": \"eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ0ZXN0QXBwbGljYXRpb24iLCJzdWIiOiJ0ZXRyb2EiLCJleHAiOjE1MTAxODE1NjcsImlhdCI6MTUxMDE3Nzk2N30.XByFsUgihq9IwGuEByjNIiWBBDMa87bCL4tl2wslZb91hfuvfhi4GbhB-53dDubP3grjltz28aHwdmqArH8I-yqyR6RKH2rCIqr2SQlaOoCrMs11G3PwTubAEQr3kfbfdEdK4d55uO5iQkjK-tvgcfs13BpYZ0L-niq9JcjIBNDgvnVZSJV-W8ZqbktdsL3Kc5jypm6hs2NSOCgUJwkmHD-EfylGkqnLVBGVI4WjsWlEEeno3yDYNCXuZsr9AFuHPOMBtwSzk8uEz1zRSvInJe9i1M2WIQ5mjEEz-0f3IeFA176sz7gD9wcqeoe9r6BTi45tO4-KB0UEMhYzQ6b313rqOtL6h-dLdyrpsfmxLPsxlRnLd3KnqWqPFYZTzycGgKi-pyqf30y8zKsYz9emo7NEBk-gTI2hZERQBgOzYpGnAkCPhvu1YOjCrNT2nueDIsb29XFI5zgOu-BS2i5aWWuF1pOklurE32Q02NHL5fv5m9O66K67DEo0INybNbxgOZsGptvIM-R4zZ4wtmQPejKGwTq6A7rwxVDmlscE1NCazWUfJNRZK2iskejwgpAvq9QXt36zhrFZEZHL28NYJnXEE-rOLEijRqE3SPP5h4R0avDCBaAxkQNRJ0Ng7Cz1aBrldzL6py4O5VDGHyG-JGMHEw\"\n}*"
+      },
+      "Generic API rules" : {
+        "description" : "# Syntax\nThe APIs must follow the RFC3986 URI Generic Syntax, which specifies that URLs are “case sensitive” (except for the scheme and the host).\n\nAPIs will also use the PascalCase convention for resources naming.\n"
+      },
+      "Accounts" : { },
+      "Clients" : { },
+      "Portfolio" : { },
+      "Relationships" : { },
+      "Transactions" : { },
+      "Object Model" : {
+        "description" : "A full list of the objects returned by the endpoints of the Croesus Web API. \n\nAll Web API endpoints return data in JSON format. \n\nWhen a collection of objects is returned and the number of objects is variable, the collection is wrapped in a paging object to simplify retrieval of further objects. \n\nSome endpoints return simplified versions of the resource objects. "
+      },
+      "Response Status Codes" : {
+        "description" : "List of standard HTTP status codes (as defined in the RFC 2616 and RFC 6585) used by the API to indicate the status of a response."
+      }
+    },
+    "texts" : {
+      "8hmdkmj" : {
+        "title" : "Sorting",
+        "content" : "The sorting for all APIs follow these rules:\n\n1. Sorting is controlled via “orderBy” input parameter\n2. The field name can be optionally prefixed by “-” to indicate descending sort\n3. If the value is not specified default sorting will be performed ( usually as “-Created” )\n4. Multiple fields can be specified and comma-delimited (via “,” parameter)\n5. All target fields must match first core entity being sorted (no nested, second level sorting is supported)\n6. The sorting is applied using the order in which the \"orderBy\" target fields are specified. Thus, if a target field is repeated, it will have no impact on the sorting order.\n\n## Examples\n| Query Example | Explanation |\n| -------- | -------- |\n| ?orderBy=-created     | Sort via created field in descending order     |\n| ?orderBy=created     | Sort via created field in ascending order     |\n| ?orderBy=created,shortName     | Sort in ascending order via created, then shortName field     |\n",
+        "section" : "Generic API rules"
+      },
+      "0djhcn5" : {
+        "title" : "Query Parameters",
+        "content" : "The query parameters for all APIs follow these rules:\n\n# Multiple URI/query parameters can be specified and comma-separated.\nExamples:\n\n* api/v1.1/accounts/5131570,10194057,5191782\n* api/v1.1/accounts/5131570/transactions?periodStart=date1&periodEnd=date2\n* api/v1.1/accounts/5131570/transactions?transactionTypeCode=type1,type2,type18,\n\n# Non encoded spaces in the parameter names or in the parameter values are not accepted.\nExamples: \n\n* CroesusServices/api/v1.1/accounts?pageLimit =500 <br> Reponse: Erreur 400\n* CroesusServices/api/v1.1/accounts?pageLimit= 500 <br> Reponse: Erreur 400\n* CroesusServices/api/v1.1/accounts? pageLimit=500 <br> Reponse: Erreur 400\n\n# Encoded spaces in the parameter names result in the parameter being ignored.\nExamples: \n\n* CroesusServices/api/v1.1/accounts?pageLimit =500 <br> Reponse: Erreur 400\n* CroesusServices/api/v1.1/accounts?pageLimit= 500 <br> Reponse: Erreur 400\n* CroesusServices/api/v1.1/accounts? pageLimit=500 <br> Reponse: Erreur 400\n* CroesusServices/api/v1.1/accounts?pageLimit%20=500 <br> Reponse: numberOfiItems=50\n* CroesusServices/api/v1.1/accounts?pageLimit=%20500 <br> Reponse: numberOfiItems=500\n* CroesusServices/api/v1.1/accounts?%20pageLimit=500 <br> Reponse: numberOfiItems=50\n\n",
+        "section" : "Generic API rules"
+      },
+      "fnh3476" : {
+        "title" : "Error Handling",
+        "content" : "This API uses standard HTTP status codes (as defined in the RFC 2616 and RFC 6585) to indicate the status of a response.\n\nThere are two main categories of error responses. Each have a different response payload structure.\n\n- Simple errors\n- Detailed errors\n\nRefer to the Reponse status codes for the list of the different statuses of a response.\n\n# Path element validation\n| Path Element Value | Status Code | Error Detail | URL Example |\n| -------- | -------- | -------- | -------- |\n| Empty     | 404     | \"path element name\" values must be provided.     | api/v1.1/transactions/332770     |\n| Not Found     | 404     | Valid values must be provided for \"path element name\".     |      |\n| Valid Value     | 200     |      |      |\n| Wrong Type     | 404     | Valid type must be specified for \"path element name\".     | api/v1.1/clients/smith     |\n\n# Parameter stardard validation\n| Parameter Value | Status Code | Error Detail | URL Example | Reason |\n| -------- | -------- | -------- | -------- | -------- |\n| Both \"before\" and \"after\" parameters are specified (for APIs that support paging)     | 400     | Specify a single cursor that either points to the start or the end of the page.     |\tapi/v1.1/accounts/5131570/transactions?before=cursor1&after=cursor2     |\tThe system cannot determine whether the previous or next page should be returned.     |\n| Empty     | 400     | Values must be provided for every specified parameter.     |\tapi/v1.1/clients/122/transactions?orderBy=     |\tAll parameters must have a value.     |\t\n| Multiple elements     | 200     |      |\tapi/v1.1/clients/122/transactions?orderBy=TransactionDate,Total     |\t     |\t\n| Parameter not supported     | 200     | \tWhen a specified parameter is not supported, the parameter will be ignored     |\tapi/v1.1/accounts/5131570?periodStart =date1&periodEnd=date2     | PeriodStart and PeriodEnd are not supported parameters for this API.\t     |\t\n| Partially Empty     | 400     | Values must be provided for every specified parameter.     |\tapi/v1.1/clients/122/transactions?orderBy=TransactionDate,,     |\tPartial value     |\t\n| Repeated parameter (when parameter is a collection)     | 200     |      |\tapi/v1.1/clients/122/transactions?orderBy=TransactionDate&orderBy =Total     |\t     |\t\n| Repeated parameter (when parameter is not a collection)     | 400     | URI/query parameters must appear only once in the URL.     | \tapi/v1.1/accounts/5131570/transactions?periodStart =date1&periodEnd=date2&periodStart =date3     |\t     |\t\n| Valid value     | 200     |      |\tapi/v1.1/clients/122/transactions?orderBy=TransactionDate     |\t     |\t\n| Wrong type     | 400     | Specified parameter     |\tapi/v1.1/clients/122/transactions?orderBy=123  <br>  <br> api/v1.1/clients/122/transactions?orderBy=TransactionDate,123    |\t123 is not a valid type for this parameter   <br> <br> 123 is not a valid type for this parameter  |\t\n| Wrong value     | 400     | Valid values must be provided for every specified parameter.     |\t\tapi/v1.1/clients/122/transactions?orderBy=abc  <br> <br> api/v1.1/clients/122/transactions?orderBy=TransactionDate,abc <br> <br> api/v1.1/clients/122/transactions?pageLimit=1000 <br> <br> api/v1.1/clients/122/transactions?periodEnd=28-01-2017 <br>  <br> api/v1.1/clients/{clientId}/accounts?requestedCurrency=US   |\tabc is not in the list of supported target fields  <br> <br> abc is not in the list of supported target fields <br> <br> <br> max = 500 <br> <br> supported format is yyyy-mm-dd (ISO 8601) <br> <br> supported currency formats are based on ISO 4217   |\t\n",
+        "section" : "Generic API rules"
+      },
+      "4z7elbx" : {
+        "title" : "Return Codes",
+        "content" : "\n| Status Code | Name | Description |\n| -------- | -------- | -------- |\n| 1xx     | Informational response     | The request was received and understood.     |\n| 200     | OK     | The request has succeeded. The client can read the result of the request in the body and the headers of the response.     |\n| 201     | Created     | The request has been fulfilled and resulted in a new resource being created.     |\n| 202     | Accepted     | The request has been accepted for processing, but the processing has not been completed.     |\n| 204     | No Content     | The request has succeeded but returns no message body.     |\n| 2xx     | Success     | The action requested by the client was received, understood, accepted, and processed successfully.     |\n| 304     | Not Modified     | The request has succeeded but the resource has not been modified since the version specified by the request header.     |\n| 3xx     | Redirection     | The client must take additional action to complete the request.     |\n| 400     | Bad request     | The request could not be understood by the server due to malformed syntax. The message body will contain more information; see Error Object for details.     |\n| 401     | Unauthorized     | The request requires user authentication or, if the request included authorization credentials, authorization has been refused for those credentials.     |\n| 403     | Forbidden     | The server understood the request, but is refusing to fulfill it     |\n| 404     | Not Found     | The server understood the request, but the requested resource could not be found. This error can be due to a temporary or permanent condition.     |\n| 429     | Too many requests     | Rate limiting has been applied.     |\n| 500     | Server error     | You should never receive this error because our clever coders catch them all ... but if you are unlucky enough to get one, please report it to us.     |\n| 502     | Bad Gateway     | The server was acting as a gateway or proxy and received an invalid response from the upstream server.     |\n| 503     | Service Unavailable     | The server is currently unable to handle the request due to a temporary condition which will be alleviated after some delay. You can choose to resend the request again.     |\n| 5xx     | Server Error     | The server is aware that it has encountered an error or is otherwise incapable of performing the request.     |\n",
+        "section" : "Response Status Codes"
+      }
+    }
+  }
+}
